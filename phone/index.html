@@ -101,7 +101,6 @@
       display: flex;
       width: 95%;
       margin: auto;
-      margin-top: 20%;
       margin-bottom: 0;
       font-size: 30px;
       font-family: Arial, Helvetica, sans-serif;
@@ -134,9 +133,9 @@
 
     .call button {
       height: 64px;
-      width: 64px;
+      /* width: 64px; */
       margin: 10px;
-      padding: 0;
+      padding: 14px;
       font-size: 20px;
       border: 0;
       outline: 0;
@@ -166,46 +165,55 @@
       outline: 0;
       background-color: transparent;
     }
+
+    .wrapper {
+      display: flex;
+      margin: auto;
+      flex-direction: column;
+      width: 100%;
+    }
   </style>
 </head>
 
 <body>
   <main>
     <div class="app">
-      <div class="number">
-        <input id="tel" class="tel" type="text" />
-        <button id="backspace" class="backspace">⌫</button>
-      </div>
-      <div class="keypad">
-        <div>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
+      <div class="wrapper">
+        <div class="number">
+          <input id="tel" class="tel" type="text" />
+          <button id="backspace" class="backspace">⌫</button>
         </div>
-        <div>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
+        <div class="keypad">
+          <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+          </div>
+          <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+          </div>
+          <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+          </div>
+          <div>
+            <button>*</button>
+            <button>0</button>
+            <button>#</button>
+          </div>
         </div>
-        <div>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
+        <div class="call">
+          <button id="callButton">📞 Call</button>
+          <button id="cancelButton" style="color: red; display: none;">☎</button>
         </div>
-        <div>
-          <button>*</button>
-          <button>0</button>
-          <button>#</button>
-        </div>
-      </div>
-      <div class="call">
-        <button id="callButton" style="color: green">📞</button>
-        <button id="cancelButton" style="color: red">☎</button>
-      </div>
-      <!-- <div class="panel">1</div>
+        <!-- <div class="panel">1</div>
       <div class="panel">2</div>
       <div class="panel abs-panel">3</div>
       <div class="panel center-panel">4</div> -->
+      </div>
     </div>
   </main>
 
@@ -220,7 +228,7 @@
       tel.value = tel.value.slice(0, tel.value.length - 1)
     }, false)
     call.addEventListener('click', function (e) {
-      alert('call')
+      alert('call: ' + tel.value)
     }, false)
     cancel.addEventListener('click', function (e) {
       alert('cancel')
