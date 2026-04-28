@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contacts</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: Roboto, sans-serif;
+      font-size: 1em;
+      line-height: 1.3;
+      letter-spacing: 0.2px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      letter-spacing: 0.4px;
+    }
+
+    a {
+      text-decoration: none;
+      color: dodgerblue;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: deepskyblue;
+    }
+
+    template {
+      display: none;
+    }
+
+    main {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(235, 235, 234);
+    }
+
+    .container {
+      display: flex;
+      margin: 0 auto;
+      padding: 20px;
+      max-width: 1100px;
+    }
+
+    .container>* {
+      margin: 18px;
+    }
+
+    .app {
+      width: 365px;
+      height: 667px;
+      position: relative;
+      padding: 20px;
+      margin: auto;
+      background-color: azure;
+    }
+
+    .search-wrapper {
+      margin: 10px 2px;
+    }
+
+    #search {
+      width: 100%;
+      padding: 10px;
+      border: 0;
+      border-radius: 0;
+      outline: 0;
+    }
+
+    .contact {
+      padding: 10px;
+      margin: 2px;
+      font-size: 20px;
+      background-color: bisque;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="app">
+      <div class="search-wrapper">
+        <input id="search" type="text" placeholder="search">
+      </div>
+      <div class="contact">888888888</div>
+      <div class="contact">777777777</div>
+      <div class="contact">555555555 </div>
+    </div>
+  </main>
+
+  <script>
+
+  </script>
+</body>
+
+</html>
