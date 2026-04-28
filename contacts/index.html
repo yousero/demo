@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>contacts</title>
+  <title>phone</title>
   <style>
     * {
       box-sizing: border-box;
@@ -66,39 +66,105 @@
     }
 
     .app {
+      display: flex;
+      flex-direction: column;
       width: 365px;
       height: 667px;
-      position: relative;
-      padding: 20px;
       margin: auto;
       background-color: azure;
-      overflow-y: scroll;
-      scrollbar-width: none;
     }
 
-    .search-wrapper {
-      margin: 10px 2px;
+    .number {
+      display: flex;
+      width: 95%;
+      margin: auto;
+      margin-bottom: 0;
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      background-color: snow;
     }
 
-    #search {
-      width: 100%;
-      padding: 10px;
+    .keypad {
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 0;
+      font-size: 0;
+    }
+
+    .keypad button {
+      height: 64px;
+      width: 64px;
+      margin: 10px;
+      padding: 0;
       font-size: 20px;
+      border: 0;
+      outline: 0;
+      background-color: peachpuff;
+    }
+
+    .call {
+      margin: auto;
+      margin-top: 20px;
+    }
+
+    .call button {
+      height: 64px;
+      /* width: 64px; */
+      margin: 10px;
+      padding: 14px;
+      font-size: 20px;
+      border: 0;
+      outline: 0;
+      background-color: peachpuff;
+    }
+
+    .backspace {
+      height: 32px;
+      width: 32px;
+      margin: 10px;
+      padding: 0;
+      align-self: center;
+      font-size: 16px;
+      border: 0;
+      outline: 0;
+      background-color: peachpuff;
+    }
+
+    .tel {
+      width: 80%;
+      height: 64px;
+      padding: 0;
+      font-size: 40px;
+      text-align: center;
       border: 0;
       border-radius: 0;
       outline: 0;
-      background-color: ghostwhite;
+      background-color: transparent;
     }
 
-    .contact {
-      padding: 10px;
-      margin: 2px;
-      font-size: 20px;
-      background-color: bisque;
+    .wrapper {
+      display: flex;
+      margin: auto;
+      flex-direction: column;
+      width: 100%;
     }
 
     .hidden {
       display: none;
+    }
+
+    .information {
+      margin-bottom: 60%;
+    }
+
+    .phone {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .timer {
+      text-align: center;
     }
   </style>
 </head>
@@ -106,45 +172,96 @@
 <body>
   <main>
     <div class="app">
-      <div class="search-wrapper">
-        <input id="search" type="text" placeholder="search">
+      <div class="wrapper">
+        <div class="information hidden">
+          <div class="phone">900</div>
+          <div class="timer">Calling...</div>
+        </div>
+        <div class="number">
+          <input id="tel" class="tel" type="text" />
+          <button id="backspace" class="backspace">⌫</button>
+        </div>
+        <div class="keypad">
+          <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+          </div>
+          <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+          </div>
+          <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+          </div>
+          <div>
+            <button>*</button>
+            <button>0</button>
+            <button>#</button>
+          </div>
+        </div>
+        <div class="call">
+          <button id="callButton">📞 Call</button>
+          <button id="cancelButton" class="hidden" style="color: red">☎</button>
+        </div>
       </div>
-      <div class="contact">888888888</div>
-      <div class="contact">Thomas Edison</div>
-      <div class="contact">555555555</div>
-      <div class="contact">Archimedes</div>
-      <div class="contact">555555555</div>
-      <div class="contact">Galileo Galilei</div>
-      <div class="contact">777777777</div>
-      <div class="contact">888888888</div>
-      <div class="contact">Leonardo da Vinci</div>
-      <div class="contact">777777777</div>
-      <div class="contact">555555555</div>
-      <div class="contact">888888888</div>
-      <div class="contact">James Watt</div>
-      <div class="contact">555555555</div>
-      <div class="contact">888888888</div>
-      <div class="contact">Michael Faraday</div>
-      <div class="contact">777777777</div>
     </div>
   </main>
 
   <script>
-    const search = document.querySelector('#search')
-    const contacts = document.querySelectorAll('.contact')
+    const tel = document.querySelector('#tel')
+    const backspace = document.querySelector('#backspace')
+    const buttons = document.querySelectorAll('.keypad button')
+    const call = document.querySelector('#callButton')
+    const cancel = document.querySelector('#cancelButton')
+    const keypad = document.querySelector('.keypad')
+    const number = document.querySelector('.number')
+    const information = document.querySelector('.information')
 
-    search.addEventListener('input', function (e) {
-      for (const c of contacts) {
-        if (search.value != '') {
-          const text = search.value.toLocaleLowerCase()
-          if (!c.textContent.toLocaleLowerCase().includes(text)) {
-            c.classList.add('hidden')
-          }
-        } else {
-          c.classList.remove('hidden')
-        }
+    let callId = null
+
+    backspace.addEventListener('click', function (e) {
+      tel.value = tel.value.slice(0, tel.value.length - 1)
+    }, false)
+    call.addEventListener('click', function (e) {
+      if (tel.value) {
+        console.log('call: ' + tel.value)
+
+        number.classList.add('hidden')
+        keypad.classList.add('hidden')
+        call.classList.add('hidden')
+        cancel.classList.remove('hidden')
+        information.classList.remove('hidden')
+
+        document.querySelector('.phone').textContent = tel.value
+        const timer = document.querySelector('.timer')
+        timer.textContent = 'Calling...'
+        setTimeout(function (e) {
+          let i = 0
+          callId = setInterval(function (e) {
+            timer.textContent = i
+            i++
+          }, 1000)
+        }, 2000)
       }
     }, false)
+    cancel.addEventListener('click', function (e) {
+      number.classList.remove('hidden')
+      keypad.classList.remove('hidden')
+      call.classList.remove('hidden')
+      cancel.classList.add('hidden')
+      information.classList.add('hidden')
+      clearInterval(callId)
+    }, false)
+
+    for (const b of buttons) {
+      b.addEventListener('click', function (e) {
+        tel.value += e.target.textContent
+      }, false)
+    }
   </script>
 </body>
 
