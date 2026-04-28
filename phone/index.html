@@ -98,11 +98,11 @@
     }
 
     .number {
+      display: flex;
       width: 95%;
       margin: auto;
       margin-top: 20%;
       margin-bottom: 0;
-      padding: 10px;
       font-size: 30px;
       font-family: Arial, Helvetica, sans-serif;
       text-align: center;
@@ -148,6 +148,7 @@
       width: 32px;
       margin: 10px;
       padding: 0;
+      align-self: center;
       font-size: 16px;
       border: 0;
       outline: 0;
@@ -157,11 +158,13 @@
     .tel {
       width: 80%;
       height: 64px;
+      padding: 0;
       font-size: 40px;
       text-align: center;
       border: 0;
       border-radius: 0;
       outline: 0;
+      background-color: transparent;
     }
   </style>
 </head>
@@ -170,8 +173,8 @@
   <main>
     <div class="app">
       <div class="number">
-        <input id="tel" class="tel" type="text" placeholder="888-88-88" />
-        <button class="backspace">⌫</button>
+        <input id="tel" class="tel" type="text" />
+        <button id="backspace" class="backspace">⌫</button>
       </div>
       <div class="keypad">
         <div>
@@ -196,8 +199,8 @@
         </div>
       </div>
       <div class="call">
-        <button style="color: green">📞</button>
-        <button style="color: red">☎</button>
+        <button id="callButton" style="color: green">📞</button>
+        <button id="cancelButton" style="color: red">☎</button>
       </div>
       <!-- <div class="panel">1</div>
       <div class="panel">2</div>
@@ -207,7 +210,27 @@
   </main>
 
   <script>
+    const tel = document.querySelector('#tel')
+    const backspace = document.querySelector('#backspace')
+    const buttons = document.querySelectorAll('.keypad button')
+    const call = document.querySelector('#callButton')
+    const cancel = document.querySelector('#cancelButton')
 
+    backspace.addEventListener('click', function (e) {
+      tel.value = tel.value.slice(0, tel.value.length - 1)
+    }, false)
+    call.addEventListener('click', function (e) {
+      alert('call')
+    }, false)
+    cancel.addEventListener('click', function (e) {
+      alert('cancel')
+    }, false)
+
+    for (const b of buttons) {
+      b.addEventListener('click', function (e) {
+        tel.value += e.target.textContent
+      }, false)
+    }
   </script>
 </body>
 
