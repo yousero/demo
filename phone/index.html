@@ -74,29 +74,6 @@
       background-color: azure;
     }
 
-    .panel {
-      width: 64px;
-      height: 64px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      line-height: 64px;
-      background-color: cornsilk;
-      user-select: none;
-    }
-
-    .abs-panel {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-    }
-
-    .center-panel {
-      position: absolute;
-      left: calc(50% - 32px);
-      top: calc(50% - 32px);
-    }
-
     .number {
       display: flex;
       width: 95%;
@@ -172,6 +149,23 @@
       flex-direction: column;
       width: 100%;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .information {
+      margin-bottom: 60%;
+    }
+
+    .phone {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .timer {
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -179,6 +173,10 @@
   <main>
     <div class="app">
       <div class="wrapper">
+        <div class="information hidden">
+          <div class="phone">900</div>
+          <div class="timer">Calling...</div>
+        </div>
         <div class="number">
           <input id="tel" class="tel" type="text" />
           <button id="backspace" class="backspace">⌫</button>
@@ -207,12 +205,8 @@
         </div>
         <div class="call">
           <button id="callButton">📞 Call</button>
-          <button id="cancelButton" style="color: red; display: none;">☎</button>
+          <button id="cancelButton" class="hidden" style="color: red">☎</button>
         </div>
-        <!-- <div class="panel">1</div>
-      <div class="panel">2</div>
-      <div class="panel abs-panel">3</div>
-      <div class="panel center-panel">4</div> -->
       </div>
     </div>
   </main>
@@ -223,15 +217,44 @@
     const buttons = document.querySelectorAll('.keypad button')
     const call = document.querySelector('#callButton')
     const cancel = document.querySelector('#cancelButton')
+    const keypad = document.querySelector('.keypad')
+    const number = document.querySelector('.number')
+    const information = document.querySelector('.information')
+
+    let callId = null
 
     backspace.addEventListener('click', function (e) {
       tel.value = tel.value.slice(0, tel.value.length - 1)
     }, false)
     call.addEventListener('click', function (e) {
-      alert('call: ' + tel.value)
+      if (tel.value) {
+        console.log('call: ' + tel.value)
+
+        number.classList.add('hidden')
+        keypad.classList.add('hidden')
+        call.classList.add('hidden')
+        cancel.classList.remove('hidden')
+        information.classList.remove('hidden')
+
+        document.querySelector('.phone').textContent = tel.value
+        const timer = document.querySelector('.timer')
+        timer.textContent = 'Calling...'
+        setTimeout(function (e) {
+          let i = 0
+          callId = setInterval(function (e) {
+            timer.textContent = i
+            i++
+          }, 1000)
+        }, 2000)
+      }
     }, false)
     cancel.addEventListener('click', function (e) {
-      alert('cancel')
+      number.classList.remove('hidden')
+      keypad.classList.remove('hidden')
+      call.classList.remove('hidden')
+      cancel.classList.add('hidden')
+      information.classList.add('hidden')
+      clearInterval(callId)
     }, false)
 
     for (const b of buttons) {
