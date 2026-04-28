@@ -72,6 +72,8 @@
       padding: 20px;
       margin: auto;
       background-color: azure;
+      overflow-y: scroll;
+      scrollbar-width: none;
     }
 
     .search-wrapper {
@@ -81,9 +83,11 @@
     #search {
       width: 100%;
       padding: 10px;
+      font-size: 20px;
       border: 0;
       border-radius: 0;
       outline: 0;
+      background-color: ghostwhite;
     }
 
     .contact {
@@ -91,6 +95,10 @@
       margin: 2px;
       font-size: 20px;
       background-color: bisque;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -102,13 +110,41 @@
         <input id="search" type="text" placeholder="search">
       </div>
       <div class="contact">888888888</div>
+      <div class="contact">Thomas Edison</div>
+      <div class="contact">555555555</div>
+      <div class="contact">Archimedes</div>
+      <div class="contact">555555555</div>
+      <div class="contact">Galileo Galilei</div>
       <div class="contact">777777777</div>
-      <div class="contact">555555555 </div>
+      <div class="contact">888888888</div>
+      <div class="contact">Leonardo da Vinci</div>
+      <div class="contact">777777777</div>
+      <div class="contact">555555555</div>
+      <div class="contact">888888888</div>
+      <div class="contact">James Watt</div>
+      <div class="contact">555555555</div>
+      <div class="contact">888888888</div>
+      <div class="contact">Michael Faraday</div>
+      <div class="contact">777777777</div>
     </div>
   </main>
 
   <script>
+    const search = document.querySelector('#search')
+    const contacts = document.querySelectorAll('.contact')
 
+    search.addEventListener('input', function (e) {
+      for (const c of contacts) {
+        if (search.value != '') {
+          const text = search.value.toLocaleLowerCase()
+          if (!c.textContent.toLocaleLowerCase().includes(text)) {
+            c.classList.add('hidden')
+          }
+        } else {
+          c.classList.remove('hidden')
+        }
+      }
+    }, false)
   </script>
 </body>
 
